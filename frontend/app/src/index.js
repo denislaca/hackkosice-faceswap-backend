@@ -19,9 +19,7 @@ if (process.env.NODE_ENV === 'development') {
   })
 }
 
-const peer = new Peer(
-  process.env.MY_CONNECTION /*{host: '10.236.255.137', port: 8080, path: '/api'}*/
-)
+const peer = new Peer(process.env.MY_CONNECTION, {host: '10.236.255.137', port: 8080, path: '/api'})
 peer.on('connection', (id) => console.log(`Cliend ${id} connected!`))
 peer.on('disconnect', (id) => console.log(`Client ${id} disconnected!`))
 
