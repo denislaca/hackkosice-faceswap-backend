@@ -1,31 +1,25 @@
-import {desktopCapturer} from 'electron'
+import videoJs from 'video.js'
 
-const createUI = async (rootElement) => {
-  console.log('hello')
-  const sources = desktopCapturer.getSources({types: ['window', 'screen']})
+const createUI = (peer) => {
+  console.log(peer)
+
   navigator.getUserMedia(
     {video: true, audio: true},
     (localMediaStream) => {
       const video = document.querySelector('video')
       video.src = window.URL.createObjectURL(localMediaStream)
       video.onloadedmetadata = (e) => {
-        // Ready to go. Do some stuff.
+        const player = videoJs('my-player')
+        player.play()
       }
     },
     (e) => {
-      console.log('Error', e)
+      console.error('Error getting user media', e)
     }
   )
 
-  function handleStream(stream) {
-    const video = document.querySelector('video')
-    video.srcObject = stream
-    video.onloadedmetadata = (e) => video.play()
-  }
-
-  function handleError(e) {
-    console.log(e)
-  }
+  const elem = document.querySelector('#send')
+  elem.addEventListener('click', () => peer.send('Ahoj'))
 }
 
 export default createUI
