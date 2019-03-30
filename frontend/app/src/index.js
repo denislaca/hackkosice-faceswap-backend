@@ -19,7 +19,9 @@ if (process.env.NODE_ENV === 'development') {
   })
 }
 
-const peer = new Peer(process.env.MY_CONNECTION, {host: '10.236.255.137', port: 8080, path: '/api'})
+const peer = new Peer(
+  process.env.MY_CONNECTION /*{host: '10.236.255.137', port: 8080, path: '/api'}*/
+)
 peer.on('connection', (id) => console.log(`Cliend ${id} connected!`))
 peer.on('disconnect', (id) => console.log(`Client ${id} disconnected!`))
 
@@ -28,8 +30,12 @@ try {
   createUI(connection)
   connection.on('open', () => {
     console.log('Connection open')
+    connection.send('chod do picic')
   })
   connection.on('data', (data) => console.log(`Received message: ${data}`))
+  connection.on('error', (err) => {
+    console.log('Connection error', err)
+  })
 
   document.getElementById('loading').classList.toggle('visible')
 } catch (err) {

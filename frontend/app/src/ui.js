@@ -1,8 +1,6 @@
 import videoJs from 'video.js'
 
 const createUI = (peer) => {
-  console.log(peer)
-
   navigator.getUserMedia(
     {video: true, audio: true},
     (localMediaStream) => {
@@ -19,7 +17,10 @@ const createUI = (peer) => {
   )
 
   const elem = document.querySelector('#send')
-  elem.addEventListener('click', () => peer.send('Ahoj'))
+  elem.addEventListener('click', () => {
+    console.log('Posielam')
+    peer.send('Ahoj')
+  })
 }
 
 export default createUI
