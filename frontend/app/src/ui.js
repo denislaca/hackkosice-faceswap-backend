@@ -1,5 +1,5 @@
 import videoJs from 'video.js'
-
+import net from 'net'
 const createUI = (sender, reciever) => {
   navigator.getUserMedia(
     {video: true, audio: true},
@@ -32,7 +32,18 @@ const createUI = (sender, reciever) => {
     connection = sender.connect(`${process.env.CONNECT_TO}_reciever`)
     connection.on('open', () => {
       connection.send('posielam data')
+      const server = net.createServer((socket) => {
+
+        socket.write('Echo server\r\n')
+        socket.on('data', (data) => {
+          console.log(data)
+          connection.send(data)
+        })
+      })
+
+      server.listen(1337, '127.0.0.1')
     })
+
   })
 }
 
