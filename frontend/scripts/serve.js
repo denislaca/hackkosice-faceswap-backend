@@ -39,7 +39,7 @@ bsync.init(
     }
 
     // NOTE: hardcoded observer file
-    const child = spawn(electron, ['.', path.join(__dirname, '../observer.log')], {
+    const child = spawn(electron, ['.', path.join(__dirname, '../src.log')], {
       env: {
         ...{
           NODE_ENV: 'development',

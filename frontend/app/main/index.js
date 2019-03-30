@@ -48,7 +48,7 @@ app.on('ready', async () => {
     show: false,
   })
 
-  mainWindow.loadFile(path.resolve(path.join(__dirname, '../renderer/index.html')))
+  mainWindow.loadFile(path.resolve(path.join(__dirname, '../src/index.html')))
 
   // show window once on first load
   mainWindow.webContents.once('did-finish-load', () => {
