@@ -1,6 +1,6 @@
 import videoJs from 'video.js'
 
-const createUI = (peer) => {
+const createUI = (sender, reciever) => {
   navigator.getUserMedia(
     {video: true, audio: true},
     (localMediaStream) => {
@@ -15,16 +15,23 @@ const createUI = (peer) => {
       console.error('Error getting user media', e)
     }
   )
+
+  reciever.on('connection', (conn) => {
+    conn.on('data', (data) => {
+      console.log(data)
+    })
+  })
   let connection
   const send = document.querySelector('#send')
   send.addEventListener('click', () => {
-    console.log('Sending message')
-    connection.send(`hi!${process.env.CONNECT_TO}`)
+    connection.send('afoj')
   })
   const connect = document.querySelector('#connect')
   connect.addEventListener('click', () => {
-    console.log('connecting')
-    connection = peer.connect(process.env.CONNECT_TO)
+    connection = sender.connect(`${process.env.CONNECT_TO}_reciever`)
+    connection.on('open', () => {
+      connection.send('posielam data')
+    })
   })
 }
 
