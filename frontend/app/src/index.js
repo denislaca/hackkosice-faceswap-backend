@@ -27,18 +27,7 @@ try {
   sender.on('error', (err) => console.log(err))
   reciever.on('error', (err) => console.log(err))
 
-
-  // const server = net.createServer((socket) => {
-
-  //   socket.write('Echo server\r\n')
-  //   socket.on('data', (data) => {
-  //     const bread = socket.bytesRead
-  //     console.log(data)
-  //     sender.send(data)
-  //   })
-  // })
-
-  // server.listen(1337, '127.0.0.1')
+  createUI(sender, reciever)
 } catch (err) {
   // eslint-disable-next-line
   console.error('Connection failed', err)

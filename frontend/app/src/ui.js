@@ -25,6 +25,7 @@ const createUI = (sender, reciever) => {
   const send = document.querySelector('#send')
   send.addEventListener('click', () => {
     connection.send('afoj')
+    connection.send('prefix')
   })
   const connect = document.querySelector('#connect')
   connect.addEventListener('click', () => {
