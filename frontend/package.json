@@ -17,7 +17,8 @@
     "imuty": "^1.0.0",
     "peerjs": "^0.3.24",
     "pixi.js": "^4.8.2",
-    "stats.js": "^0.17.0"
+    "stats.js": "^0.17.0",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",
