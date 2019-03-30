@@ -4,9 +4,9 @@
     "description": "",
     "scripts": {
         "start": "node ./dist/index.js",
-        "start-bg": "export NODE_ENV=\"production\" && source util/env_var.sh && node ./dist/index.js &",
+        "start-bg": "node ./dist/index.js &",
         "build": "npx babel src -d dist --source-maps",
-        "dev": "export NODE_ENV=\"development\" && source util/env_var.sh && npx nodemon --exec babel-node src/index.js"
+        "dev": "npx nodemon --exec babel-node src/index.js"
     },
     "dependencies": {
         "@babel/polyfill": "^7.2.5",
