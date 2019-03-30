@@ -18,8 +18,11 @@ const createUI = (peer) => {
 
   const elem = document.querySelector('#send')
   elem.addEventListener('click', () => {
-    console.log('Posielam')
-    peer.send('Ahoj')
+    const message = 'hi!'
+    peer.on('open', () => {
+      peer.send(message)
+    })
+
   })
 }
 
