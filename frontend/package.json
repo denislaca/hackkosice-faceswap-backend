@@ -15,6 +15,7 @@
     "babel-eslint": "^10.0.1",
     "browser-sync": "^2.26.3",
     "imuty": "^1.0.0",
+    "peerjs": "^0.3.24",
     "pixi.js": "^4.8.2",
     "stats.js": "^0.17.0"
   },
