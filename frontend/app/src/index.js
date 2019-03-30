@@ -21,19 +21,7 @@ if (process.env.NODE_ENV === 'development') {
 
 const peer = new Peer(process.env.MY_CONNECTION, {host: '10.236.255.137', port: 8080, path: '/api'})
 try {
-  peer.connect(process.env.CONNECT_TO)
-  peer.on('connection', (connection) => {
-    createUI(connection)
-    connection.on('open', () => {
-      connection.send(`Ahoj${process.env.CONNECT_TO}`)
-    })
-
-    connection.on('data', (data) => {
-      console.log(`Received:${data}`)
-    })
-
-    document.getElementById('loading').classList.toggle('visible')
-  })
+  createUI(peer)
 } catch (err) {
   // eslint-disable-next-line
   console.error('Connection failed', err)
