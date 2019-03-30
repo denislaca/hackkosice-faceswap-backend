@@ -2,31 +2,20 @@ import {desktopCapturer} from 'electron'
 
 const createUI = async (rootElement) => {
   console.log('hello')
-  desktopCapturer.getSources({types: ['window', 'screen']}).then(async (sources) => {
-    for (const source of sources) {
-      if (source.name === 'Electron') {
-        try {
-          const stream = await navigator.mediaDevices.getUserMedia({
-            audio: false,
-            video: {
-              mandatory: {
-                chromeMediaSource: 'desktop',
-                chromeMediaSourceId: source.id,
-                minWidth: 1280,
-                maxWidth: 1280,
-                minHeight: 720,
-                maxHeight: 720,
-              },
-            },
-          })
-          handleStream(stream)
-        } catch (e) {
-          handleError(e)
-        }
-        return
+  const sources = desktopCapturer.getSources({types: ['window', 'screen']})
+  navigator.getUserMedia(
+    {video: true, audio: true},
+    (localMediaStream) => {
+      const video = document.querySelector('video')
+      video.src = window.URL.createObjectURL(localMediaStream)
+      video.onloadedmetadata = (e) => {
+        // Ready to go. Do some stuff.
       }
+    },
+    (e) => {
+      console.log('Error', e)
     }
-  })
+  )
 
   function handleStream(stream) {
     const video = document.querySelector('video')

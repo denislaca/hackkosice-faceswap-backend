@@ -1,7 +1,11 @@
 import createUI from './ui'
 import Stats from 'stats.js'
 import Peer from 'peerjs'
+import envProperties from 'dotenv'
 import uuid from 'uuid/v4'
+
+// apply properties from .env file
+envProperties.config()
 
 // in development show FPS counter
 if (process.env.NODE_ENV === 'development') {
@@ -15,9 +19,9 @@ if (process.env.NODE_ENV === 'development') {
   })
 }
 
-const peer = new Peer('emo', {host: '10.236.255.137', port: 8080, path: '/api'})
+const peer = new Peer(process.env.MY_CONNECTION, {host: '10.236.255.137', port: 8080, path: '/api'})
 try {
-  peer.connect('denis')
+  peer.connect(process.env.CONNECT_TO)
   const rootElement = document.querySelector(document.currentScript.getAttribute('data-container'))
 
   createUI(rootElement)

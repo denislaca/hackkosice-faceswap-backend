@@ -14,6 +14,7 @@
     "@babel/register": "^7.0.0",
     "babel-eslint": "^10.0.1",
     "browser-sync": "^2.26.3",
+    "dotenv": "^7.0.0",
     "imuty": "^1.0.0",
     "npm": "^6.9.0",
     "peerjs": "^0.3.24",

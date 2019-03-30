@@ -53,3 +53,9 @@ body {
   color: red;
   font-size: 3em;
 }
+
+video {
+  transform: scaleX(-1);
+  width: 100%;
+  height: 100%;
+}
