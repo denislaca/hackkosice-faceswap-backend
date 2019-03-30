@@ -1,0 +1,11 @@
+{
+    "name": "deepfake-chat-backend",
+    "version": "0.0.1",
+    "description": "",
+    "dependencies": {
+        "express": "^4.16.4",
+        "lodash": "^4.17.11",
+        "peerjs": "^0.3.24",
+        "socket.io": "^2.2.0"
+    }
+}
