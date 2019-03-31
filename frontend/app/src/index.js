@@ -42,10 +42,13 @@ if (process.env.NODE_ENV === 'development') {
 //   path: '/api',
 // })
 let connectTo, sender, reciever, voiceSender, voiceReciever
-const kraloveSrackyKtoreSiPoSebeNeupratal = () => {
+const prefixMaRukyNaopak = () => {
   connectTo = document.getElementById('calleeID').value
   createControllers(sender, reciever, voiceSender, voiceReciever, connectTo)
   document.getElementById('formWrapper').style.opacity = 0
+  setTimeout(() => {
+    document.getElementById('image').style.display = 'block'
+  }, 500)
 }
 
 
@@ -81,7 +84,7 @@ const defaultListener = () => {
 
   document.getElementById('callersIDContainer').style.left = '-100%'
   document.getElementById('connect').innerHTML = '<i class="material-icons left">share</i> Connect'
-  document.getElementById('connect').addEventListener('click', kraloveSrackyKtoreSiPoSebeNeupratal)
+  document.getElementById('connect').addEventListener('click', prefixMaRukyNaopak)
   document.getElementById('connect').removeEventListener('click', defaultListener)
 }
 
