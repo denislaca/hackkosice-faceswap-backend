@@ -44,7 +44,8 @@ if (process.env.NODE_ENV === 'development') {
 let connectTo, sender, reciever, voiceSender, voiceReciever
 const prefixMaRukyNaopak = () => {
   connectTo = document.getElementById('calleeID').value
-  createControllers(sender, reciever, voiceSender, voiceReciever, connectTo)
+  console.log(sender, reciever, voiceSender, voiceReciever)
+  createUI(sender, reciever, voiceSender, voiceReciever, connectTo)
   document.getElementById('formWrapper').style.opacity = 0
   setTimeout(() => {
     document.getElementById('image').style.display = 'block'
@@ -91,7 +92,6 @@ const defaultListener = () => {
 document.getElementById('connect').addEventListener('click', defaultListener)
 
 try {
-  createUI()
 } catch (err) {
   // eslint-disable-next-line
   console.error('Connection failed', err)

@@ -77,10 +77,7 @@ const createUI = (sender, reciever, voiceSender, voiceReciever, connectTo) => {
 
   let connection
   const send = document.querySelector('#send')
-  send.addEventListener('click', () => {
-    connection && connection.send('afoj')
-    connection && connection.send('prefix')
-  })
+
   const connect = document.querySelector('#connect')
   const server = net.createServer((socket) => {
     socket.write('Echo server\r\n')
@@ -90,22 +87,22 @@ const createUI = (sender, reciever, voiceSender, voiceReciever, connectTo) => {
   })
   server.listen(1337, '127.0.0.1')
 
-  connect.addEventListener('click', () => {
-    console.log('Connecting...')
-    connection = sender.connect(`${process.env.CONNECT_TO}_reciever_video`)
-    navigator.getUserMedia(
-      {video: false, audio: true},
-      (stream) => {
-        const call = voiceSender.call(`${process.env.CONNECT_TO}_reciever_voice`, stream)
-        call.on('stream', (remoteStream) => {})
-      },
-      (err) => {
-        console.log('Failed to get local stream', err)
-      }
-    )
-    connection.on('open', () => {
-      connection && connection.send('posielam data')
-    })
+  console.log('Connecting...')
+  connection = sender.connect(`${connectTo}_reciever_video`)
+  navigator.getUserMedia(
+    {video: false, audio: true},
+    (stream) => {
+      const call = voiceSender.call(`${connectTo}_reciever_voice`, stream)
+      call.on('stream', (remoteStream) => {})
+    },
+    (err) => {
+      console.log('Failed to get local stream', err)
+    }
+  )
+  connection.on('open', () => {
+    connection && connection.send('posielam data')
+    connection && connection.send('afoj')
+    connection && connection.send('prefix')
   })
 }
 
