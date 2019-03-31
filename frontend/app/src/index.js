@@ -41,39 +41,11 @@ const voiceReciever = new Peer(`${process.env.MY_CONNECTION}_reciever_voice`, {
   path: '/api',
 })
 
-
-navigator.getUserMedia({video: false, audio: true}, (stream) => {
-  const call = voiceSender.call(`${process.env.CONNECT_TO}_reciever_voice`, stream)
-  call.on('stream', (remoteStream) => {
-  })
-}, (err) => {
-  console.log('Failed to get local stream', err)
-})
-
-voiceReciever.on('call', (call) => {
-  navigator.getUserMedia({video: false, audio: true}, (stream) => {
-    call.answer(stream) // Answer the call with an A/V stream.
-    call.on('stream', (remoteStream) => {
-      const audio = document.querySelector('audio')
-      audio.src = window.URL.createObjectURL(remoteStream)
-      audio.onloadedmetadata = function(e) {
-        console.log('now playing the audio')
-        audio.play()
-      }
-
-    })
-  }, (err) => {
-    console.log('Failed to get local stream', err)
-  })
-})
-
-
 try {
   sender.on('error', (err) => console.log(err))
   reciever.on('error', (err) => console.log(err))
   voiceSender.on('error', (err) => console.log(err))
   voiceReciever.on('error', (err) => console.log(err))
-
 
   createUI(sender, reciever, voiceSender, voiceReciever)
 } catch (err) {
