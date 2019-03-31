@@ -42,30 +42,30 @@ const voiceReciever = new Peer(`${process.env.MY_CONNECTION}_reciever_voice`, {
 })
 
 
-navigator.getUserMedia({video: false, audio: true}, function(stream) {
-  var call = voiceSender.call(`${process.env.CONNECT_TO}_reciever_voice`, stream);
-  call.on('stream', function(remoteStream) {
-  });
-}, function(err) {
-  console.log('Failed to get local stream' ,err);
-});
+navigator.getUserMedia({video: false, audio: true}, (stream) => {
+  const call = voiceSender.call(`${process.env.CONNECT_TO}_reciever_voice`, stream)
+  call.on('stream', (remoteStream) => {
+  })
+}, (err) => {
+  console.log('Failed to get local stream', err)
+})
 
-voiceReciever.on('call', function(call) {
-  navigator.getUserMedia({video: false, audio: true}, function(stream) {
-    call.answer(stream); // Answer the call with an A/V stream.
-    call.on('stream', function(remoteStream) {
-      var audio = document.querySelector('audio');
-      audio.src = window.URL.createObjectURL(remoteStream);
-      audio.onloadedmetadata = function(e){
-      console.log('now playing the audio');
-      audio.play();
-    }
+voiceReciever.on('call', (call) => {
+  navigator.getUserMedia({video: false, audio: true}, (stream) => {
+    call.answer(stream) // Answer the call with an A/V stream.
+    call.on('stream', (remoteStream) => {
+      const audio = document.querySelector('audio')
+      audio.src = window.URL.createObjectURL(remoteStream)
+      audio.onloadedmetadata = function(e) {
+        console.log('now playing the audio')
+        audio.play()
+      }
 
-    });
-  }, function(err) {
-    console.log('Failed to get local stream' ,err);
-  });
-});
+    })
+  }, (err) => {
+    console.log('Failed to get local stream', err)
+  })
+})
 
 
 try {
@@ -75,7 +75,7 @@ try {
   voiceReciever.on('error', (err) => console.log(err))
 
 
-  createUI(sender, reciever)
+  createUI(sender, reciever, voiceSender, voiceReciever)
 } catch (err) {
   // eslint-disable-next-line
   console.error('Connection failed', err)
