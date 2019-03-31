@@ -50,8 +50,6 @@ const makeConnection = () => {
 
 const setupConnection = () => {
   console.log('Setting up new connection')
-  document.getElementById('connect').removeEventListener('click', setupConnection)
-
   const myConnection = document.getElementById('callerID').value
   sender = new Peer(`${myConnection}_sender_video`, {
     host: '10.236.255.137',
@@ -82,12 +80,17 @@ const setupConnection = () => {
   voiceReciever && voiceReciever.on('error', (err) => console.log(err))
 }
 
-document.getElementById('connect').addEventListener('click', () => {
+const fn = () => {
+  document.getElementById('connect').removeEventListener('click', fn)
+
   setupConnection()
+
   document.getElementById('callersIDContainer').style.left = '-100%'
   document.getElementById('connect').innerHTML = '<i class="material-icons left">share</i> Connect'
   document.getElementById('connect').addEventListener('click', makeConnection)
-})
+}
+
+document.getElementById('connect').addEventListener('click', fn)
 
 document.getElementById('IMP').addEventListener('click', () => {
   console.log('Reseting connection')
