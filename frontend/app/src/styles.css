@@ -5,10 +5,9 @@ body {
   margin: 0 !important;
   font-family: "Roboto", sans-serif;
 }
-h1{
+h1 {
   font-family: "Montserrat", sans-serif;
   font-size: 8rem;
-
 }
 
 #app {
@@ -70,5 +69,9 @@ video {
 }
 
 #my-player > :not(:first-child) {
+  display: none !important;
+}
+
+audio {
   display: none !important;
 }
