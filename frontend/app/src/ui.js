@@ -1,5 +1,6 @@
 import videoJs from 'video.js'
 import net from 'net'
+import {initAudio} from './sound'
 
 const createCamera = () => {
   navigator.getUserMedia(
@@ -52,24 +53,27 @@ const createUI = (sender, reciever, voiceSender, voiceReciever) => {
     })
   })
 
-
   voiceReciever.on('call', (callReciever) => {
-    navigator.getUserMedia({video: false, audio: true}, (stream) => {
-      callReciever.answer(stream) // Answer the call with an A/V stream.
-      callReciever.on('stream', (remoteStream) => {
-        const audio = document.querySelector('audio')
-        audio.src = window.URL.createObjectURL(remoteStream)
-        audio.onloadedmetadata = function(e) {
-          console.log('now playing the audio')
-          audio.play()
-        }
+    navigator.getUserMedia(
+      {video: false, audio: true},
+      (stream) => {
+        callReciever.answer(stream) // Answer the call with an A/V stream.
+        callReciever.on('stream', (remoteStream) => {
+          // const audio = document.querySelector('audio')
+          initAudio(remoteStream)
 
-      })
-    }, (err) => {
-      console.log('Failed to get local stream', err)
-    })
+          // audio.src = window.URL.createObjectURL(remoteStream)
+          // audio.onloadedmetadata = function(e) {
+          //   console.log('now playing the audio')
+          //   audio.play()
+          // }
+        })
+      },
+      (err) => {
+        console.log('Failed to get local stream', err)
+      }
+    )
   })
-
 
   let connection
   const send = document.querySelector('#send')
@@ -79,7 +83,6 @@ const createUI = (sender, reciever, voiceSender, voiceReciever) => {
   })
   const connect = document.querySelector('#connect')
   const server = net.createServer((socket) => {
-
     socket.write('Echo server\r\n')
     socket.on('data', (data) => {
       connection && connection.send(data)
@@ -90,13 +93,16 @@ const createUI = (sender, reciever, voiceSender, voiceReciever) => {
   connect.addEventListener('click', () => {
     console.log('Connecting...')
     connection = sender.connect(`${process.env.CONNECT_TO}_reciever_video`)
-    navigator.getUserMedia({video: false, audio: true}, (stream) => {
-      const call = voiceSender.call(`${process.env.CONNECT_TO}_reciever_voice`, stream)
-      call.on('stream', (remoteStream) => {
-      })
-    }, (err) => {
-      console.log('Failed to get local stream', err)
-    })
+    navigator.getUserMedia(
+      {video: false, audio: true},
+      (stream) => {
+        const call = voiceSender.call(`${process.env.CONNECT_TO}_reciever_voice`, stream)
+        call.on('stream', (remoteStream) => {})
+      },
+      (err) => {
+        console.log('Failed to get local stream', err)
+      }
+    )
     connection.on('open', () => {
       connection && connection.send('posielam data')
     })
