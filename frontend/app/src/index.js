@@ -96,7 +96,5 @@ document.getElementById('IMP').addEventListener('click', () => {
 
 document.getElementById('IMP2').addEventListener('click', () => {
   console.log('Send test message')
-  sender.on('open', () => {
-    sender.send('sprava')
-  })
+  sender.send('sprava')
 })
