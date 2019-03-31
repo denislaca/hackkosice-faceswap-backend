@@ -43,7 +43,7 @@
 
   <img id="image" alt="obrazok" style="display: none"/>
   <div class="valign-wrapper center-align">
-    <div style="width:50%; left:25%; position: relative; overflow: hidden">
+    <div id="formWrapper" style="width:50%; left:25%; position: relative; overflow: hidden; transition: opacity 0.5s">
       <h1 >Lendface</h1>
       <div id="callersIDContainer" class="row" style="width:200%; position: relative; left:0%; transition: left 0.5s">
         <div class="input-field col s6">
@@ -83,19 +83,6 @@
     script.async = true;
     current.parentNode.insertBefore(script, current);
   }
-
-  defaultListener = ()=> {
-    document.getElementById('callersIDContainer').style.left = "-100%";
-    document.getElementById('connect').innerHTML = "<i class=\"material-icons left\">share</i> Connect";
-    document.getElementById('connect').addEventListener('click',lacaSemPisSvojeSracky);
-    document.getElementById('connect').removeEventListener('click',defaultListener);
-  };
-
-  lacaSemPisSvojeSracky = () =>{
-
-  }
-
-  document.getElementById('connect').addEventListener('click',defaultListener);
 
 </script>
 </body>
