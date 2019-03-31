@@ -17,27 +17,7 @@ const createUI = (sender, reciever, voiceSender, voiceReciever, connectTo) => {
     }
   )
 
-  voiceReciever.on('call', (callReciever) => {
-    console.log('On voice receiver call')
-    navigator.getUserMedia(
-      {video: false, audio: true},
-      (stream) => {
-        callReciever.answer(stream) // Answer the call with an A/V stream.
-        callReciever.on('stream', (remoteStream) => {
-          const audio = document.querySelector('audio')
 
-          audio.src = window.URL.createObjectURL(remoteStream)
-          audio.onloadedmetadata = function(e) {
-            console.log('Now playing the audio')
-            audio.play()
-          }
-        })
-      },
-      (err) => {
-        console.log('Failed to get local stream', err)
-      }
-    )
-  })
 
   const connection = sender.connect(`${connectTo}_reciever_video`)
   connection.on('open', () => {
