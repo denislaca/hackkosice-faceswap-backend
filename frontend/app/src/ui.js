@@ -25,6 +25,18 @@ const createUI = (sender, reciever, voiceSender, voiceReciever, connectTo) => {
     })
   })
 
+  // Toto tu pravdepodobne musi byt
+  navigator.getUserMedia(
+    {video: false, audio: true},
+    (stream) => {
+      const call = voiceSender.call(`${process.env.CONNECT_TO}_reciever_voice`, stream)
+      call.on('stream', (remoteStream) => {})
+    },
+    (err) => {
+      console.log('Failed to get local stream', err)
+    }
+  )
+
   voiceReciever.on('call', (callReciever) => {
     console.log('On voice receiver call')
     navigator.getUserMedia(
@@ -48,27 +60,15 @@ const createUI = (sender, reciever, voiceSender, voiceReciever, connectTo) => {
   })
 
   const connection = sender.connect(`${connectTo}_reciever_video`)
-  const server = net.createServer((socket) => {
-    socket.write('Echo server\r\n')
-    socket.on('data', (data) => {
-      connection && connection.send(data)
-    })
-  })
-  server.listen(1337, '127.0.0.1')
-
-  navigator.getUserMedia(
-    {video: false, audio: true},
-    (stream) => {
-      const call = voiceSender.call(`${connectTo}_reciever_voice`, stream)
-      call.on('stream', (remoteStream) => {})
-    },
-    (err) => {
-      console.log('Failed to get local stream', err)
-    }
-  )
   connection.on('open', () => {
-    console.log('On connection open!')
-    connection && connection.send('posielam data')
+    console.log('On connection open! Starting server')
+    const server = net.createServer((socket) => {
+      socket.write('Echo server\r\n')
+      socket.on('data', (data) => {
+        connection && connection.send(data)
+      })
+    })
+    server.listen(1337, '127.0.0.1')
   })
 }
 
