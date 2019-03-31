@@ -3,27 +3,7 @@ import net from 'net'
 const createUI = (sender, reciever, voiceSender, voiceReciever, connectTo) => {
   console.log('Connecting...')
 
-  // these may be removed later, but let's check conenction from other clients too
-  sender.on('connection', () => {
-    console.log('On image sender connection')
-  })
-  voiceSender.on('connection', () => {
-    console.log('On voice sender connection')
-  })
-
-  reciever.on('connection', (conn) => {
-    console.log('On image receiver connection')
-    conn.on('data', (data) => {
-      console.log('Received data', data)
-      const image = document.getElementById('image')
-      const hehe = new Uint8Array(data)
-      const blob = new Blob([hehe], {type: 'image/jpeg'})
-      const urlCreator = window.URL || window.webkitURL
-      const imageUrl = urlCreator.createObjectURL(blob)
-      image.src = imageUrl
-      image.onerror = (err) => console.log('Error', err)
-    })
-  })
+ 
 
   // Toto tu pravdepodobne musi byt
   navigator.getUserMedia(

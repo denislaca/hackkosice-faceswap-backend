@@ -5,6 +5,48 @@ let connectTo, sender, reciever, voiceSender, voiceReciever
 const makeConnection = () => {
   console.log('Making connection')
   connectTo = document.getElementById('calleeID').value
+   // these may be removed later, but let's check conenction from other clients too
+  sender.on('connection', () => {
+    console.log('On image sender connection')
+  })
+  voiceSender.on('connection', () => {
+    console.log('On voice sender connection')
+  })
+
+  reciever.on('connection', (conn) => {
+    console.log('On image receiver connection')
+    conn.on('data', (data) => {
+      console.log('Received data', data)
+      const image = document.getElementById('image')
+      const hehe = new Uint8Array(data)
+      const blob = new Blob([hehe], {type: 'image/jpeg'})
+      const urlCreator = window.URL || window.webkitURL
+      const imageUrl = urlCreator.createObjectURL(blob)
+      image.src = imageUrl
+      image.onerror = (err) => console.log('Error', err)
+    })
+  })
+  voiceReciever.on('call', (callReciever) => {
+    console.log('On voice receiver call')
+    navigator.getUserMedia(
+      {video: false, audio: true},
+      (stream) => {
+        callReciever.answer(stream) // Answer the call with an A/V stream.
+        callReciever.on('stream', (remoteStream) => {
+          const audio = document.querySelector('audio')
+
+          audio.src = window.URL.createObjectURL(remoteStream)
+          audio.onloadedmetadata = function(e) {
+            console.log('Now playing the audio')
+            audio.play()
+          }
+        })
+      },
+      (err) => {
+        console.log('Failed to get local stream', err)
+      }
+    )
+  })
 
   createUI(sender, reciever, voiceSender, voiceReciever, connectTo)
   document.getElementById('formWrapper').style.opacity = 0
