@@ -29,7 +29,7 @@ const createUI = (sender, reciever, voiceSender, voiceReciever, connectTo) => {
   navigator.getUserMedia(
     {video: false, audio: true},
     (stream) => {
-      const call = voiceSender.call(`${process.env.CONNECT_TO}_reciever_voice`, stream)
+      const call = voiceSender.call(`${connectTo}_reciever_voice`, stream)
       call.on('stream', (remoteStream) => {})
     },
     (err) => {
