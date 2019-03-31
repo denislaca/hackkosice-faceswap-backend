@@ -5,13 +5,6 @@ let connectTo, sender, reciever, voiceSender, voiceReciever
 const makeConnection = () => {
   console.log('Making connection')
   connectTo = document.getElementById('calleeID').value
-  // these may be removed later, but let's check conenction from other clients too
-  sender.on('connection', () => {
-    console.log('On image sender connection')
-  })
-  voiceSender.on('connection', () => {
-    console.log('On voice sender connection')
-  })
 
   reciever.on('connection', (conn) => {
     console.log('On image receiver connection')
@@ -56,7 +49,7 @@ const makeConnection = () => {
 }
 
 const setupConnection = () => {
-  console.log('Setting up connection')
+  console.log('Setting up new connection')
   document.getElementById('connect').removeEventListener('click', setupConnection)
 
   const myConnection = document.getElementById('callerID').value
@@ -87,10 +80,23 @@ const setupConnection = () => {
   reciever && reciever.on('error', (err) => console.log(err))
   voiceSender && voiceSender.on('error', (err) => console.log(err))
   voiceReciever && voiceReciever.on('error', (err) => console.log(err))
+}
 
+document.getElementById('connect').addEventListener('click', () => {
+  setupConnection()
   document.getElementById('callersIDContainer').style.left = '-100%'
   document.getElementById('connect').innerHTML = '<i class="material-icons left">share</i> Connect'
   document.getElementById('connect').addEventListener('click', makeConnection)
-}
+})
 
-document.getElementById('connect').addEventListener('click', setupConnection)
+document.getElementById('IMP').addEventListener('click', () => {
+  console.log('Reseting connection')
+  setupConnection()
+})
+
+document.getElementById('IMP2').addEventListener('click', () => {
+  console.log('Send test message')
+  sender.on('open', () => {
+    sender.send('sprava')
+  })
+})

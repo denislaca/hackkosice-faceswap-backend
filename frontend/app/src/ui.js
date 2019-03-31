@@ -15,7 +15,7 @@ const createUI = (sender, reciever, voiceSender, voiceReciever, connectTo) => {
     }
   )
 
-  let connection = sender.connect(`${connectTo}_reciever_video`)
+  const connection = sender.connect(`${connectTo}_reciever_video`)
   connection.on('open', () => {
     console.log('On connection open! Starting server')
     const server = net.createServer((socket) => {
@@ -25,24 +25,6 @@ const createUI = (sender, reciever, voiceSender, voiceReciever, connectTo) => {
       })
     })
     server.listen(1337, '127.0.0.1')
-  })
-
-  document.getElementById('IMP').style.display = 'block'
-  document.getElementById('IMP').addEventListener('click', () => {
-    console.log('Reseting connection')
-    connection = sender.connect(`${connectTo}_reciever`)
-    connection.on('open', () => {
-      connection.send('posielam data')
-      const server = net.createServer((socket) => {
-        socket.write('Echo server\r\n')
-        socket.on('data', (data) => {
-          console.log('Sokcet received data', data)
-          connection.send(data)
-        })
-      })
-
-      server.listen(1337, '127.0.0.1')
-    })
   })
 }
 
