@@ -1,50 +1,102 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="font.css" />
-    <link rel="stylesheet" href="styles.css" />
-    <title>My App</title>
-  </head>
-  <body>
-    <div id="loading" class="dialog">Loading</div>
-    <div id="app">
-      <!-- <video id="my-player" data-setup="{}" preload="auto">
-        <source src="https://vjs.zencdn.net/v/oceans.mp4" type="video/mp4"></source>
-        <p class="vjs-no-js">
-          To view this video please enable JavaScript, and consider upgrading to
-          a web browser that
-          <a href="https://videojs.com/html5-video-support/" target="_blank">
-            supports HTML5 video
-          </a>
-        </p>
-      </video> -->
+<head>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
+  <link rel="stylesheet" href="font.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>Lendface</title>
+  <style>
+    .btn-large{
+      border-radius: 1024px;
+      margin: 5px;
+    }
 
-      <img id="image" alt="obrazok" />
+    /* label focus color */
+    .input-field input[type=text]:focus + label {
+      color: #3f51b5 !important;
+    }
+    /* label underline focus color */
+    .input-field input[type=text]:focus {
+      border-bottom: 1px solid #3f51b5 !important;
+      box-shadow: 0 1px 0 0 #3f51b5 !important;
+    }
+  </style>
+</head>
+<body>
+<div id="loading" class="dialog">Loading</div>
+<div id="app">
+  <!-- <video id="my-player" data-setup="{}" preload="auto">
+    <source src="https://vjs.zencdn.net/v/oceans.mp4" type="video/mp4"></source>
+    <p class="vjs-no-js">
+      To view this video please enable JavaScript, and consider upgrading to
+      a web browser that
+      <a href="https://videojs.com/html5-video-support/" target="_blank">
+        supports HTML5 video
+      </a>
+    </p>
+  </video> -->
 
-      <button id="send">Send message</button>
-      <button id="connect">Connect</button>
+  <img id="image" alt="obrazok" style="display: none"/>
+  <div class="valign-wrapper center-align">
+    <div style="width:50%; left:25%; position: relative; overflow: hidden">
+      <h1 >Lendface</h1>
+      <div id="callersIDContainer" class="row" style="width:200%; position: relative; left:0%; transition: left 0.5s">
+        <div class="input-field col s6">
+          <input id="callerID" type="text">
+          <label for="callerID">Your ID</label>
+        </div>
+        <div  class="input-field col s6">
+          <input id="calleeID" type="text">
+          <label for="calleeID">Who you want to call ID</label>
+        </div>
+
+      </div>
+
+      <button id="send" class="btn-large waves-effect waves-light red" style="display: none">Send message</button>
+      <button id="connect" class="btn-large waves-effect waves-light red"><i class="material-icons left">navigate_next</i> Next</button>
     </div>
-    <div id="modal" class="dialog">Záznam skončený</div>
-    <div id="error" class="dialog error"></div>
-    <!-- <script
-      async
-      src="../assets/opencv.js"
-      onload="onOpenCvReady();"
-      type="text/javascript"
-    ></script> -->
-    <script src="./index.js" data-container="#app"></script>
-    <script>
-      // function onOpenCvReady() {
-      //   console.log("Open cv ready", window.cv);
-      // }
+  </div>
+</div>
+<div id="modal" class="dialog">Záznam skončený</div>
+<div id="error" class="dialog error"></div>
+<!-- <script
+  async
+  src="../assets/opencv.js"
+  onload="onOpenCvReady();"
+  type="text/javascript"
+></script> -->
+<script src="./index.js" data-container="#app"></script>
+<script>
+  // function onOpenCvReady() {
+  //   console.log("Open cv ready", window.cv);
+  // }
 
-      if (process.env.BROWSER_SYNC_CLIENT_URL) {
-        const current = document.currentScript;
-        const script = document.createElement("script");
-        script.src = process.env.BROWSER_SYNC_CLIENT_URL;
-        script.async = true;
-        current.parentNode.insertBefore(script, current);
-      }
-    </script>
-  </body>
+  if (process.env.BROWSER_SYNC_CLIENT_URL) {
+    const current = document.currentScript;
+    const script = document.createElement("script");
+    script.src = process.env.BROWSER_SYNC_CLIENT_URL;
+    script.async = true;
+    current.parentNode.insertBefore(script, current);
+  }
+
+  defaultListener = ()=> {
+    document.getElementById('callersIDContainer').style.left = "-100%";
+    document.getElementById('connect').innerHTML = "<i class=\"material-icons left\">share</i> Connect";
+    document.getElementById('connect').addEventListener('click',lacaSemPisSvojeSracky);
+    document.getElementById('connect').removeEventListener('click',defaultListener);
+  };
+
+  lacaSemPisSvojeSracky = () =>{
+
+  }
+
+  document.getElementById('connect').addEventListener('click',defaultListener);
+
+</script>
+</body>
 </html>
