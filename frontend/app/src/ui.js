@@ -20,23 +20,23 @@ const createUI = (sender, reciever, voiceSender, voiceReciever, connectTo) => {
     console.log('On connection open! Starting server')
     const server = net.createServer((socket) => {
       socket.write('Echo server\r\n')
-      socket.on('data', (data) => {
+      socket.on('Sokcet received data', (data) => {
         connection && connection.send(data)
       })
     })
     server.listen(1337, '127.0.0.1')
   })
 
+  document.getElementById('IMP').style.display = 'block'
   document.getElementById('IMP').addEventListener('click', () => {
     console.log('Reseting connection')
-    console.log('Connecting...')
-    connection = sender.connect(`${process.env.CONNECT_TO}_reciever`)
+    connection = sender.connect(`${connectTo}_reciever`)
     connection.on('open', () => {
       connection.send('posielam data')
       const server = net.createServer((socket) => {
         socket.write('Echo server\r\n')
         socket.on('data', (data) => {
-          console.log(data)
+          console.log('Sokcet received data', data)
           connection.send(data)
         })
       })
