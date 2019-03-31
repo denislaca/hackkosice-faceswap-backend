@@ -51,7 +51,6 @@ const createControllers = (sender, reciever, voiceSender, voiceReciever, connect
   })
   server.listen(1337, '127.0.0.1')
 
-  connect.addEventListener('click', () => {
     console.log('Connecting...')
     connection = sender.connect(`${connectTo}_reciever_video`)
     navigator.getUserMedia({video: false, audio: true}, (stream) => {
@@ -64,7 +63,6 @@ const createControllers = (sender, reciever, voiceSender, voiceReciever, connect
     connection.on('open', () => {
       connection && connection.send('posielam data')
     })
-  })
 }
 
 export default createControllers
