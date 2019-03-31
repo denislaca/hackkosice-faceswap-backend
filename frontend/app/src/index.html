@@ -8,7 +8,7 @@
   <body>
     <div id="loading" class="dialog">Loading</div>
     <div id="app">
-      <video id="my-player" data-setup="{}" preload="auto">
+      <!-- <video id="my-player" data-setup="{}" preload="auto">
         <source src="https://vjs.zencdn.net/v/oceans.mp4" type="video/mp4"></source>
         <p class="vjs-no-js">
           To view this video please enable JavaScript, and consider upgrading to
@@ -17,15 +17,27 @@
             supports HTML5 video
           </a>
         </p>
-      </video>
+      </video> -->
+
+      <img id="image" alt="obrazok" />
 
       <button id="send">Send message</button>
       <button id="connect">Connect</button>
     </div>
     <div id="modal" class="dialog">Záznam skončený</div>
     <div id="error" class="dialog error"></div>
+    <!-- <script
+      async
+      src="../assets/opencv.js"
+      onload="onOpenCvReady();"
+      type="text/javascript"
+    ></script> -->
     <script src="./index.js" data-container="#app"></script>
     <script>
+      // function onOpenCvReady() {
+      //   console.log("Open cv ready", window.cv);
+      // }
+
       if (process.env.BROWSER_SYNC_CLIENT_URL) {
         const current = document.currentScript;
         const script = document.createElement("script");

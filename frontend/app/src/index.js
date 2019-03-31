@@ -2,8 +2,6 @@ import createUI from './ui'
 import Stats from 'stats.js'
 import Peer from 'peerjs'
 import envProperties from 'dotenv'
-import uuid from 'uuid/v4'
-import net from 'net'
 
 // apply properties from .env file
 envProperties.config()
@@ -20,15 +18,22 @@ if (process.env.NODE_ENV === 'development') {
   })
 }
 
-const sender = new Peer(`${process.env.MY_CONNECTION}_sender`, {host: '10.236.255.137', port: 8080, path: '/api'})
-const reciever = new Peer(`${process.env.MY_CONNECTION}_reciever`, {host: '10.236.255.137', port: 8080, path: '/api'})
+const sender = new Peer(`${process.env.MY_CONNECTION}_sender`, {
+  host: '10.236.255.137',
+  port: 8080,
+  path: '/api',
+})
+const reciever = new Peer(`${process.env.MY_CONNECTION}_reciever`, {
+  host: '10.236.255.137',
+  port: 8080,
+  path: '/api',
+})
 
 try {
   sender.on('error', (err) => console.log(err))
   reciever.on('error', (err) => console.log(err))
 
   createUI(sender, reciever)
-
 } catch (err) {
   // eslint-disable-next-line
   console.error('Connection failed', err)
