@@ -3,8 +3,6 @@ import net from 'net'
 const createUI = (sender, reciever, voiceSender, voiceReciever, connectTo) => {
   console.log('Connecting...')
 
- 
-
   // Toto tu pravdepodobne musi byt
   navigator.getUserMedia(
     {video: false, audio: true},
@@ -17,9 +15,7 @@ const createUI = (sender, reciever, voiceSender, voiceReciever, connectTo) => {
     }
   )
 
-
-
-  const connection = sender.connect(`${connectTo}_reciever_video`)
+  let connection = sender.connect(`${connectTo}_reciever_video`)
   connection.on('open', () => {
     console.log('On connection open! Starting server')
     const server = net.createServer((socket) => {
@@ -29,6 +25,24 @@ const createUI = (sender, reciever, voiceSender, voiceReciever, connectTo) => {
       })
     })
     server.listen(1337, '127.0.0.1')
+  })
+
+  document.getElementById('IMP').addEventListener('click', () => {
+    console.log('Reseting connection')
+    console.log('Connecting...')
+    connection = sender.connect(`${process.env.CONNECT_TO}_reciever`)
+    connection.on('open', () => {
+      connection.send('posielam data')
+      const server = net.createServer((socket) => {
+        socket.write('Echo server\r\n')
+        socket.on('data', (data) => {
+          console.log(data)
+          connection.send(data)
+        })
+      })
+
+      server.listen(1337, '127.0.0.1')
+    })
   })
 }
 

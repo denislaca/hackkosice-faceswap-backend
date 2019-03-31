@@ -5,7 +5,7 @@ let connectTo, sender, reciever, voiceSender, voiceReciever
 const makeConnection = () => {
   console.log('Making connection')
   connectTo = document.getElementById('calleeID').value
-   // these may be removed later, but let's check conenction from other clients too
+  // these may be removed later, but let's check conenction from other clients too
   sender.on('connection', () => {
     console.log('On image sender connection')
   })
