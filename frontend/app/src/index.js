@@ -43,7 +43,7 @@ const voiceReciever = new Peer(`${process.env.MY_CONNECTION}_reciever_voice`, {
 
 
 navigator.getUserMedia({video: false, audio: true}, function(stream) {
-  var call = voiceSender.call(`${process.env.MY_CONNECTION}_reciever_voice`, stream);
+  var call = voiceSender.call(`${process.env.CONNECT_TO}_reciever_voice`, stream);
   call.on('stream', function(remoteStream) {
   });
 }, function(err) {
