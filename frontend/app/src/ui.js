@@ -70,7 +70,7 @@ const createUI = (sender, reciever) => {
 
   connect.addEventListener('click', () => {
     console.log('Connecting...')
-    connection = sender.connect(`${process.env.CONNECT_TO}_reciever`)
+    connection = sender.connect(`${process.env.CONNECT_TO}_reciever_video`)
     connection.on('open', () => {
       connection && connection.send('posielam data')
     })
