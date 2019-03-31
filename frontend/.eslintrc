@@ -1,7 +1,14 @@
 {
   "root": true,
   "extends": "vacuumlabs",
-  "globals": { "document": true, "window": true, "navigator": true },
+  "globals": {
+    "document": true,
+    "window": true,
+    "navigator": true,
+    "AudioContext": true,
+    "BufferLoader": true,
+    "Blob": true
+  },
   "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
