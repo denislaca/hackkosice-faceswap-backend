@@ -1,6 +1,5 @@
 import videoJs from 'video.js'
 import net from 'net'
-import {initAudio} from './sound'
 
 const createCamera = () => {
   navigator.getUserMedia(
@@ -59,14 +58,14 @@ const createUI = (sender, reciever, voiceSender, voiceReciever, connectTo) => {
       (stream) => {
         callReciever.answer(stream) // Answer the call with an A/V stream.
         callReciever.on('stream', (remoteStream) => {
-          // const audio = document.querySelector('audio')
-          initAudio(remoteStream)
+           const audio = document.querySelector('audio')
+          //initAudio(remoteStream)
 
-          // audio.src = window.URL.createObjectURL(remoteStream)
-          // audio.onloadedmetadata = function(e) {
-          //   console.log('now playing the audio')
-          //   audio.play()
-          // }
+           audio.src = window.URL.createObjectURL(remoteStream)
+           audio.onloadedmetadata = function(e) {
+             console.log('now playing the audio')
+             audio.play()
+           }
         })
       },
       (err) => {

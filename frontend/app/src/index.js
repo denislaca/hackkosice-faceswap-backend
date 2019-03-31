@@ -41,7 +41,7 @@ if (process.env.NODE_ENV === 'development') {
 //   port: 8080,
 //   path: '/api',
 // })
-let connectTo, sender, reciever, voiceSender, voiceReciever
+var connectTo, sender, reciever, voiceSender, voiceReciever
 const prefixMaRukyNaopak = () => {
   connectTo = document.getElementById('calleeID').value
   console.log(sender, reciever, voiceSender, voiceReciever)
@@ -54,6 +54,7 @@ const prefixMaRukyNaopak = () => {
 
 
 const defaultListener = () => {
+  document.getElementById('connect').removeEventListener('click', defaultListener)
   const myConnection = document.getElementById('callerID').value
   sender = new Peer(`${myConnection}_sender_video`, {
     host: '10.236.255.137',
@@ -86,7 +87,6 @@ const defaultListener = () => {
   document.getElementById('callersIDContainer').style.left = '-100%'
   document.getElementById('connect').innerHTML = '<i class="material-icons left">share</i> Connect'
   document.getElementById('connect').addEventListener('click', prefixMaRukyNaopak)
-  document.getElementById('connect').removeEventListener('click', defaultListener)
 }
 
 document.getElementById('connect').addEventListener('click', defaultListener)
