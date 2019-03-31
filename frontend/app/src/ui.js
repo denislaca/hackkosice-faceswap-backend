@@ -26,7 +26,7 @@ const joinBuffers = (buffer1, buffer2) => {
   return tmp.buffer
 }
 
-const createUI = (sender, reciever, voiceSender, voiceReciever) => {
+const createUI = (sender, reciever, voiceSender, voiceReciever, connectTo) => {
   // createCamera()
 
   const image = document.getElementById('image')

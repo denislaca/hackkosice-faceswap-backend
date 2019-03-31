@@ -6,7 +6,8 @@
     "window": true,
     "navigator": true,
     "AudioContext": true,
-    "BufferLoader": true
+    "BufferLoader": true,
+    "Blob": true
   },
   "parser": "babel-eslint",
   "parserOptions": {
