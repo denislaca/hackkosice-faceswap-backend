@@ -50,20 +50,17 @@ const createControllers = (sender, reciever, voiceSender, voiceReciever, connect
     })
   })
   server.listen(1337, '127.0.0.1')
-
-  connect.addEventListener('click', () => {
-    console.log('Connecting...')
-    connection = sender.connect(`${connectTo}_reciever_video`)
-    navigator.getUserMedia({video: false, audio: true}, (stream) => {
-      const call = voiceSender.call(`${connectTo}_reciever_voice`, stream)
-      call.on('stream', (remoteStream) => {
-      })
-    }, (err) => {
-      console.log('Failed to get local stream', err)
+  console.log('Connecting...')
+  connection = sender.connect(`${connectTo}_reciever_video`)
+  navigator.getUserMedia({video: false, audio: true}, (stream) => {
+    const call = voiceSender.call(`${connectTo}_reciever_voice`, stream)
+    call.on('stream', (remoteStream) => {
     })
-    connection.on('open', () => {
-      connection && connection.send('posielam data')
-    })
+  }, (err) => {
+    console.log('Failed to get local stream', err)
+  })
+  connection.on('open', () => {
+    connection && connection.send('posielam data')
   })
 }
 
