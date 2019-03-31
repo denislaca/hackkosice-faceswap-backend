@@ -1,5 +1,4 @@
 import createUI from './ui'
-import createControllers from './controllers'
 import Stats from 'stats.js'
 import Peer from 'peerjs'
 import envProperties from 'dotenv'
@@ -19,33 +18,13 @@ if (process.env.NODE_ENV === 'development') {
   })
 }
 
-// const sender = new Peer(`${process.env.MY_CONNECTION}_sender_video`, {
-//   host: '10.236.255.137',
-//   port: 8080,
-//   path: '/api',
-// })
-// const reciever = new Peer(`${process.env.MY_CONNECTION}_reciever_video`, {
-//   host: '10.236.255.137',
-//   port: 8080,
-//   path: '/api',
-// })
-
-// const voiceSender = new Peer(`${process.env.MY_CONNECTION}_sender_voice`, {
-//   host: '10.236.255.137',
-//   port: 8080,
-//   path: '/api',
-// })
-
-// const voiceReciever = new Peer(`${process.env.MY_CONNECTION}_reciever_voice`, {
-//   host: '10.236.255.137',
-//   port: 8080,
-//   path: '/api',
-// })
 let connectTo, sender, reciever, voiceSender, voiceReciever
 const prefixMaRukyNaopak = () => {
   connectTo = document.getElementById('calleeID').value
   console.log(sender, reciever, voiceSender, voiceReciever)
-  createUI(sender, reciever, voiceSender, voiceReciever, connectTo)
+  setTimeout(() => {
+    createUI(sender, reciever, voiceSender, voiceReciever, connectTo)
+  }, 1000)
   document.getElementById('formWrapper').style.opacity = 0
   setTimeout(() => {
     document.getElementById('image').style.display = 'block'
