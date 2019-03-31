@@ -18,24 +18,24 @@ if (process.env.NODE_ENV === 'development') {
   })
 }
 
-const sender = new Peer(`${process.env.MY_CONNECTION}_sender_video`, {
+let sender = new Peer(`${process.env.MY_CONNECTION}_sender_video`, {
   host: '10.236.255.137',
   port: 8080,
   path: '/api',
 })
-const reciever = new Peer(`${process.env.MY_CONNECTION}_reciever_video`, {
-  host: '10.236.255.137',
-  port: 8080,
-  path: '/api',
-})
-
-const voiceSender = new Peer(`${process.env.MY_CONNECTION}_sender_voice`, {
+let reciever = new Peer(`${process.env.MY_CONNECTION}_reciever_video`, {
   host: '10.236.255.137',
   port: 8080,
   path: '/api',
 })
 
-const voiceReciever = new Peer(`${process.env.MY_CONNECTION}_reciever_voice`, {
+let voiceSender = new Peer(`${process.env.MY_CONNECTION}_sender_voice`, {
+  host: '10.236.255.137',
+  port: 8080,
+  path: '/api',
+})
+
+let voiceReciever = new Peer(`${process.env.MY_CONNECTION}_reciever_voice`, {
   host: '10.236.255.137',
   port: 8080,
   path: '/api',
@@ -84,3 +84,52 @@ try {
   const elem = document.getElementById('error')
   elem.innerHTML = 'Connection failed, please try later!'
 }
+
+const prefixMaRukyNaopak = () => {
+  connectTo = document.getElementById('calleeID').value
+  console.log(sender, reciever, voiceSender, voiceReciever)
+  createUI(sender, reciever, voiceSender, voiceReciever, connectTo)
+  document.getElementById('formWrapper').style.opacity = 0
+  setTimeout(() => {
+    document.getElementById('image').style.display = 'block'
+  }, 500)
+}
+
+
+const defaultListener = () => {
+  document.getElementById('connect').removeEventListener('click', defaultListener)
+  const myConnection = document.getElementById('callerID').value
+  sender = new Peer(`${myConnection}_sender_video`, {
+    host: '10.236.255.137',
+    port: 8080,
+    path: '/api',
+  })
+  reciever = new Peer(`${myConnection}_reciever_video`, {
+    host: '10.236.255.137',
+    port: 8080,
+    path: '/api',
+  })
+
+  voiceSender = new Peer(`${myConnection}_sender_voice`, {
+    host: '10.236.255.137',
+    port: 8080,
+    path: '/api',
+  })
+
+  voiceReciever = new Peer(`${myConnection}_reciever_voice`, {
+    host: '10.236.255.137',
+    port: 8080,
+    path: '/api',
+  })
+
+  sender && sender.on('error', (err) => console.log(err))
+  reciever && reciever.on('error', (err) => console.log(err))
+  voiceSender && voiceSender.on('error', (err) => console.log(err))
+  voiceReciever && voiceReciever.on('error', (err) => console.log(err))
+
+  document.getElementById('callersIDContainer').style.left = '-100%'
+  document.getElementById('connect').innerHTML = '<i class="material-icons left">share</i> Connect'
+  document.getElementById('connect').addEventListener('click', prefixMaRukyNaopak)
+}
+
+document.getElementById('connect').addEventListener('click', defaultListener)

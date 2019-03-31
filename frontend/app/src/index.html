@@ -1,9 +1,30 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
     <link rel="stylesheet" href="font.css" />
     <link rel="stylesheet" href="styles.css" />
-    <title>My App</title>
+    <title>Lendface</title>
+    <style>
+      .btn-large{
+        border-radius: 1024px;
+        margin: 5px;
+      }
+
+      /* label focus color */
+      .input-field input[type=text]:focus + label {
+        color: #3f51b5 !important;
+      }
+      /* label underline focus color */
+      .input-field input[type=text]:focus {
+        border-bottom: 1px solid #3f51b5 !important;
+        box-shadow: 0 1px 0 0 #3f51b5 !important;
+      }
+    </style>
   </head>
   <body>
     <audio controls></audio>
@@ -20,10 +41,27 @@
         </p>
       </video> -->
 
-      <img id="image" alt="obrazok" />
+      <audio controls></audio>
+      <img id="image" alt="obrazok" style="display: none"/>
+      <div class="valign-wrapper center-align">
+        <div id="formWrapper" style="width:50%; left:25%; position: relative; overflow: hidden; transition: opacity 0.5s">
+          <h1 >Lendface</h1>
+          <div id="callersIDContainer" class="row" style="width:200%; position: relative; left:0%; transition: left 0.5s">
+            <div class="input-field col s6">
+              <input id="callerID" type="text">
+              <label for="callerID">Your ID</label>
+            </div>
+            <div  class="input-field col s6">
+              <input id="calleeID" type="text">
+              <label for="calleeID">Who you want to call ID</label>
+            </div>
 
-      <button id="send">Send message</button>
-      <button id="connect">Connect</button>
+          </div>
+
+          <button id="send" class="btn-large waves-effect waves-light red" style="display: none">Send message</button>
+          <button id="connect" class="btn-large waves-effect waves-light red"><i class="material-icons left">navigate_next</i> Next</button>
+        </div>
+      </div>
     </div>
     <div id="modal" class="dialog">Záznam skončený</div>
     <div id="error" class="dialog error"></div>
